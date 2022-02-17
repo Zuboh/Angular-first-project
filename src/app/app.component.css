@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+button {
+ cursor: pointer;
+}
+
+.active {
+  color: red;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.5em;
+}
+
+li {
+  list-style-type: none;
+  margin: 0 0.5em;
+}
+
+ul {
+  display: flex;
+}
