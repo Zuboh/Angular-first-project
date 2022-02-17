@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Button } from 'bootstrap';
-import { Todo } from '../models/todo';
+import { Component, OnInit } from "@angular/core";
+import { Button } from "bootstrap";
+import { Todo } from "../models/todo";
 // import { addTodo  } from '../services/todo.service'
 
 @Component({
@@ -8,7 +8,7 @@ import { Todo } from '../models/todo';
     <div class="container">
       <p [hidden]="nascosto">Opss non ci sono task</p>
       <ul *ngFor="let todo of todos; let i = index">
-        <li><span (click)="removeTodo(i)">✅</span> {{ '- ' + todo.title }}</li>
+        <li><span (click)="removeTodo(i)">✅</span> {{ "- " + todo.title }}</li>
       </ul>
       <input type="text" (input)="getTitle($event)" />
       <button (click)="addTodo()">+</button>
@@ -50,15 +50,17 @@ export class TodosPages implements OnInit {
   constructor() {}
 
   todos: Todo[] = [];
-  titolo: string = '';
-  nascosto:boolean = false;
+  titolo: string = "";
+  nascosto: boolean = false;
+  completato: boolean = false;
 
   //crea l'oggetto newTodo e lo mette nell'array
   addTodo() {
     setTimeout(() => {
+      this.completato = false;
       const newTodo: Todo = {
         title: this.titolo,
-        completed: false,
+        completed: this.completato,
         id: this.todos.length + 1,
       };
       this.todos.push(newTodo);

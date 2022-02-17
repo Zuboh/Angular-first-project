@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { Todo } from "../models/todo";
 
 @Component({
   template: `
     <main>
-      <div class="container"></div>
+      <div class="container">
+      </div>
     </main>
   `,
   styles: [
@@ -19,6 +21,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompletatiPages implements OnInit {
   constructor() {}
-
+  todos: Todo[] = [];
   ngOnInit(): void {}
 }

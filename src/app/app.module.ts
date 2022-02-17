@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { Route, RouterModule } from '@angular/router';
 const routes: Route[] = [
   {
-    path: 'todos',
+    path: '',
     component: TodosPages,
   },
   {
