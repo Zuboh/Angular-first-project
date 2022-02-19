@@ -1,17 +1,15 @@
 import { Component, OnInit } from "@angular/core";
-import { Button } from "bootstrap";
 import { Todo } from "../models/todo";
-// import { addTodo  } from '../services/todo.service'
+import * as services from "../services/todo.service";
 
 @Component({
   template: `<main>
     <div class="container">
-      <p [hidden]="nascosto">Opss non ci sono task</p>
       <ul *ngFor="let todo of todos; let i = index">
         <li><span (click)="removeTodo(i)">✅</span> {{ "- " + todo.title }}</li>
       </ul>
       <input type="text" (input)="getTitle($event)" />
-      <button (click)="addTodo()">+</button>
+      <button (click)="addTodo(titolo)">+</button>
     </div>
   </main> `,
   styles: [
@@ -47,42 +45,34 @@ import { Todo } from "../models/todo";
   ],
 })
 export class TodosPages implements OnInit {
-  constructor() {}
+  todos!: Todo[];
 
-  todos: Todo[] = [];
-  titolo: string = "";
-  nascosto: boolean = false;
+  constructor() {
+    services.getTodo().then(_res => {
+      this.todos = _res;
+    }
+    );
+  }
+
   completato: boolean = false;
+  titolo: string = "";
+  id:number=0;
 
-  //crea l'oggetto newTodo e lo mette nell'array
-  addTodo() {
-    setTimeout(() => {
-      this.completato = false;
-      const newTodo: Todo = {
-        title: this.titolo,
-        completed: this.completato,
-        id: this.todos.length + 1,
-      };
-      this.todos.push(newTodo);
-      this.nascosto = true;
-      console.log(this.todos);
-    }, 2000);
+  addTodo(titolo: string) {
+    services.aggiungiTodo(titolo);
   }
 
-  //rimuove l'ultimo elemento dell'array
   removeTodo(i: number): void {
+    services.aggiungiCompletati(this.titolo);
     if (i > -1) {
-      this.todos.splice(i, 1);
-    }
-    if (i == 0) {
-      this.nascosto = false;
+      services.todos.splice(i, 1);
     }
   }
 
-  //prende il value dell'input è lo mette nell'object newTodo
-  getTitle(event: any) {
+  getTitle(event: Event): void {
     const target = <HTMLInputElement>event.target;
     this.titolo = target.value;
   }
+
   ngOnInit(): void {}
 }
